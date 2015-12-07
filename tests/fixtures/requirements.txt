@@ -1,0 +1,6 @@
+unversioned
+pinned_version==1.0
+ranged_version>=1.0,<=2
+git+ssh://git@url/path/to/repo.git@1.0.0#egg=url
+git+ssh://git@url/path/to/repo.git#egg=unversioned_url
+-e git+ssh://git@url/path/to/repo.git@master#egg=editable

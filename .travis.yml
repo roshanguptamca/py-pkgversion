@@ -1,0 +1,17 @@
+language: python
+sudo: required
+
+services:
+  - docker
+
+script:
+  - make docker/build
+
+deploy:
+  provider: pypi
+  user: kpn-digital
+  password:
+    secure: N1Z/YtR8gNoU2mRXYiwaCRQA1Ad8reTFhI47Gv3UbpgU65e1KohGpHmSUW6gsY0YgggWvT+EQ/WpRQjB/Nllx8VLH85GgCeA+WdAe5sqBbHyLmei8HHf8LYNTvgPYJ5lMWKN59S2HW4pwvr9sLD8qaWqLyDskqiSrgy4BWzvnjn6mYyM8fSIk1L5xyYlsZNI3Tzxs6TJavYz1xqdqT5dsNUNvxHWuE1mv1qYCb8yz8xp+qfWfDlXBv5yNAOdMZNjZfa48Clv80L0kRw6j4yz8F4mh8u1+kDArAm9mjGCc3IeLUQpF749LHpxRRhkDLu2NBe/E7ANMX0yEG8DrijJhGPLXqcQZEZMLd/UObkNA4g3XESXcSQ4CN2KKW8gHbrkmZj3OW4lqZZswWq9KQohsdtwYTCKS0X6GaniEY0hcFYFe8P0hepbAZHdtI/gAS8qBJSTS34biEFGZP/gaGsB6cmtKNN82yZXHTa1Xw3tYmLznNJskYu3U0LbQez+SIxN2XM7FxRHYFtK0QecziMLV2ryvxQTKpLp8zFl1IpAtJvRkuS08smEq4DnW1kui6xr55PgV0hz8ZycLBVpWW6BTCsy9Jys1Yk5WQnGot4FXlNIJs91nakd2lJtYgf4doathx6W6LsulaicnPCrOLrkrqZBW5S4QP4aHB5b7XvYeoY=
+  skip_cleanup: true
+  on:
+    tags: true
