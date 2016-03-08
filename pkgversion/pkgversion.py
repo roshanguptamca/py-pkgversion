@@ -79,6 +79,8 @@ def pep440_version(version=get_version()):
     """
     if version:
         v = re.compile(r'(\d+\.\d+(\.\d+)?)(-(\d+)-(\w+))?').search(version)
+        if not v:
+            return version
         if v.group(5):
             return "{0}+{1}.{2}".format(v.group(1), v.group(4), v.group(5))
         else:
