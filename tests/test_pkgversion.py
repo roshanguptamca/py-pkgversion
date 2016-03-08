@@ -37,6 +37,7 @@ class TestPkgversion(unittest.TestCase):
         assert pep440_version('1.2') == '1.2'
         assert pep440_version('1.2.3') == '1.2.3'
         assert pep440_version('1.2.3-99-ge3b6e92') == '1.2.3+99.ge3b6e92'
+        assert pep440_version('ge3b6e92') == 'ge3b6e92'
         assert pep440_version(None) is None
 
     def test_list_requirements(self):
