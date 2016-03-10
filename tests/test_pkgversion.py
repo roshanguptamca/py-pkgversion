@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 """
-test_py-pkgversion
+test_pkgversion
 ----------------------------------
 
-Tests for `py-pkgversion` module.
+Tests for `pkgversion` module.
 """
 import ast
 import os
