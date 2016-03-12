@@ -7,7 +7,7 @@ write_setup_py(
     name='pkgversion',
     version=pep440_version(),
     description="Versioning utils for python projects",
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     author="Niels Lensink",
     author_email='niels@elements.nl',
     url='https://github.com/kpn-digital/pkgversion',
