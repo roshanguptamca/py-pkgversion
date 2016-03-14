@@ -10,7 +10,7 @@ write_setup_py(
     long_description=open('README.rst').read(),
     author="Niels Lensink",
     author_email='niels@elements.nl',
-    url='https://github.com/kpn-digital/pkgversion',
+    url='https://github.com/kpn-digital/py-pkgversion',
     install_requires=list_requirements('requirements/requirements-base.txt'),
     packages=find_packages(exclude=['tests*']),
     tests_require=['tox'],
@@ -24,6 +24,8 @@ write_setup_py(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
         'Topic :: Internet :: WWW/HTTP',
     ]
 )
