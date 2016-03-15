@@ -161,7 +161,6 @@ docs/_build/
 target/
 
 # Project files
-/setup.py
 /venv/
 
 ### Vim ###
