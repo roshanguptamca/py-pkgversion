@@ -60,6 +60,15 @@ def get_version():
     return str(version) or "0.0.0"
 
 
+def match_tail(regex, text):
+    complete_regex = r'\A(?P<head>.+?)(?P<tail>' + regex + r')\Z'
+    v = re.compile(complete_regex).match(text)
+    if v:
+        return v.group('head'), v
+    else:
+        return text, None
+
+
 def pep440_version(version=get_version()):
     """
     Format the version according to the ``PEP 440`` spec.
@@ -71,20 +80,54 @@ def pep440_version(version=get_version()):
     '2.0.0'
 
     Args:
-        str version: String of the version
+        str version: String of the version.
+
+        Public version according to PEP 440.
+
+        Optionally may have postfix produced by git describe:
+        -<number-commits>-g<hashid>
 
     Returns:
         str: PEP 440 formatted version string
 
     """
     if version:
-        v = re.compile(r'(\d+\.\d+(\.\d+)?)(-(\d+)-(\w+))?').search(version)
+        v = re.compile(r'\A(?P<githash>g\w+)\Z').match(version)
+        if v:
+            return '0.0+' + v.group('githash')
+
+        parts = []
+
+        head, match = match_tail(r'-(?P<gitnr>\d+)-(?P<githash>g\w+)', version)
+        if match:
+            parts.insert(0, '+' + match.group('gitnr') + '.' + match.group('githash'))
+
+        head, match = match_tail(r'\.dev\d+', head)
+        if match:
+            parts.insert(0, match.group('tail'))
+
+        head, match = match_tail(r'\.post\d+', head)
+        if match:
+            parts.insert(0, match.group('tail'))
+
+        head, match = match_tail(r'[-\._]?(?P<prerelease>a|alpha|b|beta|c|rc|pre|preview)(?P<version>\d+)', head)
+        if match:
+            prerelease = {
+                'alpha': 'a', 'a': 'a',
+                'beta': 'b', 'b': 'b',
+                'c': 'rc',
+                'pre': 'rc', 'preview': 'rc', 'rc': 'rc'
+            }[match.group('prerelease')]
+            parts.insert(0, prerelease + match.group('version'))
+
+        v = re.compile(r'\A(?P<release>\d+\.\d+(\.\d+)?)\Z').match(head)
         if not v:
-            return version
-        if v.group(5):
-            return "{0}+{1}.{2}".format(v.group(1), v.group(4), v.group(5))
-        else:
-            return v.group(1)
+            return None
+
+        parts.insert(0, v.group('release'))
+
+        return ''.join(parts)
+
     return None
 
 

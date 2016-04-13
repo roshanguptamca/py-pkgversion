@@ -37,8 +37,29 @@ class TestPkgversion(unittest.TestCase):
         assert pep440_version('1.2') == '1.2'
         assert pep440_version('1.2.3') == '1.2.3'
         assert pep440_version('1.2.3-99-ge3b6e92') == '1.2.3+99.ge3b6e92'
-        assert pep440_version('ge3b6e92') == 'ge3b6e92'
+        assert pep440_version('ge3b6e92') == '0.0+ge3b6e92'
         assert pep440_version(None) is None
+        assert pep440_version('1.2.3a4-99-ge3b6e92') == '1.2.3a4+99.ge3b6e92'
+        assert pep440_version('1.2.3-a4-99-ge3b6e92') == '1.2.3a4+99.ge3b6e92'
+        assert pep440_version('1.2.3_a4-99-ge3b6e92') == '1.2.3a4+99.ge3b6e92'
+        assert pep440_version('1.2.3.a4-99-ge3b6e92') == '1.2.3a4+99.ge3b6e92'
+        assert pep440_version('1.2.3-a4') == '1.2.3a4'
+        assert pep440_version('1.2.3a4') == '1.2.3a4'
+        assert pep440_version('1.2.3-alpha4') == '1.2.3a4'
+        assert pep440_version('1.2.3-beta4') == '1.2.3b4'
+        assert pep440_version('1.2.3-rc4') == '1.2.3rc4'
+        assert pep440_version('1.2.3-c4') == '1.2.3rc4'
+        assert pep440_version('1.2.3-preview4') == '1.2.3rc4'
+        assert pep440_version('1.2.3-pre4') == '1.2.3rc4'
+        assert pep440_version('1.2.3b4') == '1.2.3b4'
+        assert pep440_version('1.2.3.rc4') == '1.2.3rc4'
+        assert pep440_version('1.2.3.dev4') == '1.2.3.dev4'
+        assert pep440_version('1.2.3ndev4') is None
+        assert pep440_version('1.2.3.post1') == '1.2.3.post1'
+        assert pep440_version('1.2.3npost1') is None
+        assert pep440_version('1.2.3-a4.post1.dev5') == '1.2.3a4.post1.dev5'
+        assert pep440_version('1.2.3-a4.post1.dev5') == '1.2.3a4.post1.dev5'
+        assert pep440_version('non1.2.3.post1') is None
 
     def test_list_requirements(self):
         actual = list_requirements(requirements_file)
