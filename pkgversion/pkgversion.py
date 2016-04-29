@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import pprint
 import re
 from subprocess import PIPE, Popen
 
@@ -144,4 +145,4 @@ def write_setup_py(file=None, **kwargs):
         file = os.path.join(get_git_repo_dir(), 'setup.py')
 
     with open(file, 'w+') as f:
-        f.write(setup_py_template.format(data))
+        f.write(setup_py_template.format(pprint.pformat(data)))
