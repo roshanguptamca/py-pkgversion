@@ -64,15 +64,15 @@ class TestPkgversion(unittest.TestCase):
     def test_list_requirements(self):
         actual = list_requirements(requirements_file)
         expected = [
-            'unversioned', 'pinned-version==1.0',
-            'ranged-version<=2,>=1.0', 'url', 'unversioned-url',
+            'unversioned', 'pinned_version==1.0',
+            'ranged_version<=2,>=1.0', 'url', 'unversioned_url',
             'editable'
         ]
         assert actual == expected
 
     def test_get_git_repo_dir(self):
         assert os.path.isdir(get_git_repo_dir())
-        assert os.path.isdir(os.path.join(get_git_repo_dir(), b'.git'))
+        assert os.path.isdir(os.path.join(get_git_repo_dir(), '.git'))
 
     def test_get_git_repo_dir_invalid(self):
         pwd = os.getcwd()
