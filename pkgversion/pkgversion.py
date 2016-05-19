@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import locale
 import os
 import pprint
 import re
@@ -27,6 +28,14 @@ def get_git_repo_dir():
     repo_dir = repo_dir.strip()
     if not repo_dir:
         repo_dir = None
+
+    if repo_dir and not isinstance(repo_dir, str):
+
+        encoding = locale.getpreferredencoding()
+
+        if encoding:
+            return repo_dir.decode(encoding)
+
     return repo_dir
 
 
