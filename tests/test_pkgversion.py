@@ -10,8 +10,7 @@ Tests for `pkgversion` module.
 import ast
 import os
 import re
-import tempfile
-import unittest
+from subprocess import PIPE, Popen
 
 from pkgversion import (
     get_git_repo_dir, get_version, list_requirements, pep440_version,
@@ -23,7 +22,7 @@ requirements_file = os.path.join(
 )
 
 
-class TestPkgversion(unittest.TestCase):
+class TestPkgversion(object):
     def setUp(self):
         pass
 
@@ -31,7 +30,7 @@ class TestPkgversion(unittest.TestCase):
         pass
 
     def test_get_version(self):
-        self.assertRegexpMatches(get_version(), r'^(\d.\d(.\d))?(-\d+-\w+)?')
+        assert re.match(r'^(\d.\d(.\d))?(-\d+-\w+)?', get_version())
 
     def test_pep440_version(self):
         assert pep440_version('1.2') == '1.2'
@@ -80,35 +79,42 @@ class TestPkgversion(unittest.TestCase):
         assert get_git_repo_dir() is None
         os.chdir(pwd)
 
-    def test_write_setup_py(self):
-        expected_import = "^from setuptools import setup$"
-        expected_setup = "^setup\(\*\*(.*)\)$"
-        _, tmp_file = tempfile.mkstemp()
-        write_setup_py(
-            file=tmp_file,
-            version='1.0.0',
-            install_requires=['test']
-        )
+    def test_write_setup_py_with_git_repo(self, tmpdir):
         try:
-            with open(tmp_file, 'r') as f:
+            prev_cwd = os.getcwd()
+            os.chdir(str(tmpdir))
+
+            commands = [
+                ['git', 'init'],
+                ['git', 'config', 'user.email', 'me@example.com'],
+                ['git', 'config', 'user.name', 'me'],
+                ['touch', 'somefile'],
+                ['git', 'add', 'somefile'],
+                ['git', 'commit', '-m', 'first'],
+                ['git', 'tag', '2.0.1']
+            ]
+            for command in commands:
+                Popen(command, stdout=PIPE, cwd=str(tmpdir)).communicate()
+
+            expected_import = "^from setuptools import setup$"
+            expected_setup = "^setup\(\*\*(.*)\)$"
+
+            write_setup_py(
+                install_requires=['test']
+            )
+            with open('setup.py', 'r') as f:
                 generated = f.read().splitlines()
-                self.assertEqual(3, len(generated))
+                assert 3 == len(generated)
                 blank_line = generated[0]
                 import_line = generated[1]
                 setup_line = generated[2]
-                self.assertEqual('', blank_line)
+                assert '' == blank_line
                 assert re.match(expected_import, import_line) is not None
                 setup_args_match = re.match(expected_setup, setup_line)
                 assert setup_args_match is not None
                 d = ast.literal_eval(setup_args_match.groups()[0])
-                self.assertEqual(2, len(d))
-                self.assertEqual('1.0.0', d['version'])
-                self.assertEqual(['test'], d['install_requires'])
+                assert 2 == len(d)
+                assert '2.0.1' == d['version']
+                assert ['test'] == d['install_requires']
         finally:
-            os.remove(tmp_file)
-
-
-if __name__ == '__main__':
-    import sys
-
-    sys.exit(unittest.main())
+            os.chdir(prev_cwd)

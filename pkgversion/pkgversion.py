@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import locale
 import os
 import pprint
 import re
@@ -26,17 +25,9 @@ def get_git_repo_dir():
         ['git', 'rev-parse', '--show-toplevel'],
         stdin=PIPE, stderr=PIPE, stdout=PIPE).communicate()
     repo_dir = repo_dir.strip()
-    if not repo_dir:
-        repo_dir = None
-
-    if repo_dir and not isinstance(repo_dir, str):
-
-        encoding = locale.getpreferredencoding()
-
-        if encoding:
-            return repo_dir.decode(encoding)
-
-    return repo_dir
+    if repo_dir:
+        return repo_dir.decode('utf-8')
+    return None
 
 
 def list_requirements(path):
@@ -67,7 +58,7 @@ def get_version():
     cmd = ['git', 'describe', '--always', '--tags']
     p = Popen(cmd, stdout=PIPE, close_fds=True)
     version = p.stdout.read().strip()
-    return str(version) or "0.0.0"
+    return version.decode("utf-8") or "0.0.0"
 
 
 def match_tail(regex, text):
