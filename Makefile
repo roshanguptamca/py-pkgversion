@@ -29,7 +29,7 @@ clean: pyclean docsclean
 	@rm -rf venv
 
 venv:
-	@python -m venv virtualenv
+	@python -m venv venv
 	@$(PIP) install -U "pip>=7.0" -q
 	@$(PIP) install -r $(DEPS)
 
