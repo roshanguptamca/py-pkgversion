@@ -10,13 +10,13 @@ env:
 matrix:
   include:
     - python: 3.6
-      env: TOXENV=lint PYTHONPATH=3.6
+      env: TOXENV=lint
     - python: 3.6
       env: TOXENV=docs
     - python: 3.6
-      env: TOXENV=isort-check PYTHONPATH=3.6
+      env: TOXENV=isort-check
     - python: 3.6
-      env: TOXENV=isort-fix PYTHONPATH=3.6
+      env: TOXENV=isort-fix
     - python: 2.7
       env: TOXENV=py27-pip9
     - python: 2.7
@@ -26,9 +26,9 @@ matrix:
     - python: 3.5
       env: TOXENV=py35-pip10
     - python: 3.6
-      env: TOXENV=py36-pip9 PYTHONPATH=3.6
+      env: TOXENV=py36-pip9
     - python: 3.6
-      env: TOXENV=py36-pip10 PYTHONPATH=3.6
+      env: TOXENV=py36-pip10
 
 services:
   - docker
