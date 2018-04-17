@@ -2,6 +2,12 @@ language: python
 python:
   - "3.6"
 sudo: required
+addons:
+  apt:
+    sources:
+      - deadsnakes
+    packages:
+      - python3.6
 matrix:
   include:
     - python: 3.6
