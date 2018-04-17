@@ -1,9 +1,7 @@
+language: python
+python:
+  - "3.6"
 sudo: required
-dist: trusty
-os: linux
-language: generic
-before_script:
-    - pyenv 3.6
 
 services:
   - docker
