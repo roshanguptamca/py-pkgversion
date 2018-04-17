@@ -1,6 +1,4 @@
 language: python
-python:
-  - "3.6"
 sudo: required
 matrix:
   - python: "2.7"
@@ -9,12 +7,6 @@ matrix:
     env: TOXENV=py35
   - python: "3.6"
     env: TOXENV=py36
-addons:
-  apt:
-    sources:
-      - deadsnakes
-    packages:
-      - python3.6
 
 services:
   - docker
