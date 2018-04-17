@@ -31,8 +31,7 @@ script:
   - make docker/build
 
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install python3
+  - export PATH=$(echo $PATH | tr ':' "\n" | sed '/\/opt\/pyenv/d' | tr "\n" ":" | sed "s|::|:|g")
   - pip install codecov
 after_success:
   - codecov
