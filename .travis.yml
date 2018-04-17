@@ -1,4 +1,6 @@
 language: python
+virtualenv:
+  system_site_packages: true
 python:
   - "3.6"
 sudo: required
@@ -11,19 +13,19 @@ addons:
 matrix:
   include:
     - python: 3.6
-      env: TOXENV=lint PYTHON=3.6
+      env: TOXENV=lint PYTHONPATH=3.6
     - python: 3.6
       env: TOXENV=docs
     - python: 3.6
-      env: TOXENV=isort-check PYTHON=3.6
+      env: TOXENV=isort-check PYTHONPATH=3.6
     - python: 3.6
-      env: TOXENV=isort-fix PYTHON=3.6
+      env: TOXENV=isort-fix PYTHONPATH=3.6
     - python: 2.7
       env: TOXENV=py27
     - python: 3.5
       env: TOXENV=py35
     - python: 3.6
-      env: TOXENV=py36 PYTHON=3.6
+      env: TOXENV=py36 PYTHONPATH=3.6
 
 services:
   - docker
