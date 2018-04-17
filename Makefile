@@ -7,8 +7,8 @@
 DEPS:=requirements.txt
 DOCKER_COMPOSE:=$(shell which docker-compose)
 
-PIP:="venv/bin/pip"
-CMD_FROM_VENV:=". venv/bin/activate; which"
+PIP:="virtualenv/bin/pip"
+CMD_FROM_VENV:=". virtualenv/bin/activate; which"
 TOX=$(shell "$(CMD_FROM_VENV)" "tox")
 PYTHON=$(shell "$(CMD_FROM_VENV)" "python")
 TOX_PY_LIST="$(shell $(TOX) -l | grep ^py | xargs | sed -e 's/ /,/g')"
@@ -29,7 +29,7 @@ clean: pyclean docsclean
 	@rm -rf venv
 
 venv:
-	@python3.6 -m venv venv
+	@python3.6 -m venv virtualenv
 	@$(PIP) install -U "pip>=7.0" -q
 	@$(PIP) install -r $(DEPS)
 
