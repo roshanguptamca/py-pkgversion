@@ -18,11 +18,17 @@ matrix:
     - python: 3.6
       env: TOXENV=isort-fix PYTHONPATH=3.6
     - python: 2.7
-      env: TOXENV=py27
+      env: TOXENV=py27-pip9
+    - python: 2.7
+      env: TOXENV=py27-pip10
     - python: 3.5
-      env: TOXENV=py35
+      env: TOXENV=py35-pip9
+    - python: 3.5
+      env: TOXENV=py35-pip10
     - python: 3.6
-      env: TOXENV=py36 PYTHONPATH=3.6
+      env: TOXENV=py36-pip9 PYTHONPATH=3.6
+    - python: 3.6
+      env: TOXENV=py36-pip10 PYTHONPATH=3.6
 
 services:
   - docker

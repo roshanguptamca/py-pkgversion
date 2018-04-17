@@ -7,8 +7,8 @@
 DEPS:=requirements.txt
 DOCKER_COMPOSE:=$(shell which docker-compose)
 
-PIP:="virtualenv/bin/pip"
-CMD_FROM_VENV:=". virtualenv/bin/activate; which"
+PIP:="venv/bin/pip"
+CMD_FROM_VENV:=". venv/bin/activate; which"
 TOX=$(shell "$(CMD_FROM_VENV)" "tox")
 PYTHON=$(shell "$(CMD_FROM_VENV)" "python")
 TOX_PY_LIST="$(shell $(TOX) -l | grep ^py | xargs | sed -e 's/ /,/g')"
