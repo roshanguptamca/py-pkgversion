@@ -18,19 +18,6 @@ matrix:
       env: TOXENV=py35
     - python: 3.6
       env: TOXENV=py36
-    # Test against Twisted trunk in case something in development breaks us.
-    # This is allowed to fail below, since the bug may be in Twisted.
-    - python: 2.7
-      env: TOXENV=coverage-py27-twtrunk,codecov
-    - python: 3.6
-      env: TOXENV=coverage-py36-twtrunk,codecov
-
-    - python: 2.7
-      env: TOXENV=twistedchecker-diff
-    - python: 2.7
-      env: TOXENV=docs
-    - python: 2.7
-      env: TOXENV=docs-linkcheck
 
 services:
   - docker
