@@ -2,28 +2,13 @@ language: python
 python:
   - "3.6"
 sudo: required
-addons:
-  apt:
-    sources:
-      - deadsnakes
-    packages:
-      - python3.6
-matrix:
-  include:
-    - python: 3.6
-      env: TOXENV=lint PYTHON=3.6
-    - python: 3.6
-      env: TOXENV=docs
-    - python: 3.6
-      env: TOXENV=isort-check PYTHON=3.6
-    - python: 3.6
-      env: TOXENV=isort-fix PYTHON=3.6
-    - python: 2.7
-      env: TOXENV=py27
-    - python: 3.5
-      env: TOXENV=py35
-    - python: 3.6
-      env: TOXENV=py36 PYTHON=3.6
+env:
+  global:
+    - MAKEOPTS=-j3
+  matrix:
+    - PYVERSION=python2.7
+    - PYVERSION=python3.5
+    - PYVERSION=python3.6
 
 services:
   - docker
