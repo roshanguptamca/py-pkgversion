@@ -11,19 +11,19 @@ addons:
 matrix:
   include:
     - python: 3.6
-      env: TOXENV=lint
+      env: TOXENV=lint PYTHON=3.6
     - python: 3.6
       env: TOXENV=docs
     - python: 3.6
-      env: TOXENV=isort-check
+      env: TOXENV=isort-check PYTHON=3.6
     - python: 3.6
-      env: TOXENV=isort-fix
+      env: TOXENV=isort-fix PYTHON=3.6
     - python: 2.7
       env: TOXENV=py27
     - python: 3.5
       env: TOXENV=py35
     - python: 3.6
-      env: TOXENV=py36
+      env: TOXENV=py36 PYTHON=3.6
 
 services:
   - docker
