@@ -4,12 +4,11 @@ virtualenv:
 python:
   - "3.6"
 sudo: required
-addons:
-  apt:
-    sources:
-      - deadsnakes
-    packages:
-      - python3.6
+env:
+  py27
+  py35
+  py36
+
 matrix:
   include:
     - python: 3.6
