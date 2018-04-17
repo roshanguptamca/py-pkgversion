@@ -33,6 +33,7 @@ script:
   - make docker/build
 
 before_install:
+  - pyenv global system 3.6
   - pip install codecov
 after_success:
   - codecov
