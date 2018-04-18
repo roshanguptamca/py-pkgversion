@@ -3,10 +3,8 @@ python:
   - "3.6"
 sudo: required
 env:
-  py27-pip9
-  py27-pip10
-  py35-pip9
-  py35-pip10
+  py27
+  py35
   py36
 
 matrix:
@@ -20,13 +18,9 @@ matrix:
     - python: 3.6
       env: TOXENV=isort-fix
     - python: 2.7
-      env: TOXENV=py27-pip9
-    - python: 2.7
-      env: TOXENV=py27-pip10
+      env: TOXENV=py27
     - python: 3.5
-      env: TOXENV=py35-pip9
-    - python: 3.5
-      env: TOXENV=py35-pip10
+      env: TOXENV=py35
     - python: 3.6
       env: TOXENV=py36
 
