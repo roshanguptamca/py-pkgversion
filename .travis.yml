@@ -2,6 +2,33 @@ language: python
 python:
   - "3.6"
 sudo: required
+env:
+  py27-pip9
+  py27-pip10
+  py35-pip9
+  py35-pip10
+  py36
+
+matrix:
+  include:
+    - python: 3.6
+      env: TOXENV=lint
+    - python: 3.6
+      env: TOXENV=docs
+    - python: 3.6
+      env: TOXENV=isort-check
+    - python: 3.6
+      env: TOXENV=isort-fix
+    - python: 2.7
+      env: TOXENV=py27-pip9
+    - python: 2.7
+      env: TOXENV=py27-pip10
+    - python: 3.5
+      env: TOXENV=py35-pip9
+    - python: 3.5
+      env: TOXENV=py35-pip10
+    - python: 3.6
+      env: TOXENV=py36
 
 services:
   - docker
